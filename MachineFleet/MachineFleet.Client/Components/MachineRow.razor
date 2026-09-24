@@ -7,9 +7,32 @@
         </span>
     </td>
     <td>@Machine.LastData</td>
-    <td class="small">@Machine.LastUpdated.ToString("yyyy-MM-dd HH:mm")</td>
+    <td class="small">@Machine.LastUpdated.ToString("yyyy-MM-dd HH:mm:ss")</td>
     <td class="text-end">
-        @* Action buttons are added in the next step *@
+        <div class="btn-group btn-group-sm" role="group">
+            <button class="btn btn-outline-success" type="button"
+                    disabled="@Machine.IsOnline"
+                    @onclick="() => InvokeActionAsync(Actions.OnStart)">
+                Start
+            </button>
+
+            <button class="btn btn-outline-warning" type="button"
+                    disabled="@(!Machine.IsOnline)"
+                    @onclick="() => InvokeActionAsync(Actions.OnStop)">
+                Stop
+            </button>
+
+            <button class="btn btn-outline-primary text-nowrap" type="button"
+                    disabled="@(!Machine.IsOnline)"
+                    @onclick="() => InvokeActionAsync(Actions.OnSendData)">
+                Send Data
+            </button>
+
+            <button class="btn btn-outline-danger" type="button"
+                    @onclick="() => InvokeActionAsync(Actions.OnDelete)">
+                Delete
+            </button>
+        </div>
     </td>
 </tr>
 
@@ -17,4 +40,13 @@
 
     [Parameter]
     public Machine Machine { get; set; } = null!;
+
+    [CascadingParameter]
+    public MachineActions Actions { get; set; } = null!;
+
+    private async Task InvokeActionAsync(EventCallback<Guid> callback)
+    {
+        if (callback.HasDelegate)
+            await callback.InvokeAsync(Machine.Id);
+    }
 }

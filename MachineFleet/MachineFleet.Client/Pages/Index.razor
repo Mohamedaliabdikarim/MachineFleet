@@ -7,11 +7,15 @@
     <p class="text-secondary mb-0">Overview of your industrial IoT devices.</p>
 </div>
 
-<MachineList Machines="_machines" />
+<CascadingValue Value="_actions">
+    <MachineList Machines="_machines" />
+</CascadingValue>
 
 @code {
 
     private IReadOnlyList<Machine> _machines = null!;
+
+    private MachineActions _actions = null!;
 
     [Inject]
     public IMachineService MachineService { get; set; } = null!;
@@ -19,5 +23,35 @@
     protected override void OnInitialized()
     {
         _machines = MachineService.GetMachines();
+
+        _actions = new MachineActions
+        {
+            OnStart = EventCallback.Factory.Create<Guid>(this, StartMachine),
+            OnStop = EventCallback.Factory.Create<Guid>(this, StopMachine),
+            OnSendData = EventCallback.Factory.Create<Guid>(this, SendData),
+            OnDelete = EventCallback.Factory.Create<Guid>(this, DeleteMachine)
+        };
+    }
+
+    private void StartMachine(Guid id) => MachineService.StartMachine(id);
+
+    private void StopMachine(Guid id) => MachineService.StopMachine(id);
+
+    private void SendData(Guid id) => MachineService.UpdateMachineData(id, GenerateReading());
+
+    private void DeleteMachine(Guid id) => MachineService.RemoveMachine(id);
+
+    // Simulates a new sensor reading from the machine
+    private static string GenerateReading()
+    {
+        string[] readings =
+        [
+            $"Temp: {Random.Shared.Next(60, 90)}°C",
+            $"RPM: {Random.Shared.Next(1000, 2000)}",
+            $"Amps: {Random.Shared.Next(20, 45)}",
+            $"Pressure: {Random.Shared.Next(90, 150)} bar"
+        ];
+
+        return readings[Random.Shared.Next(readings.Length)];
     }
 }
