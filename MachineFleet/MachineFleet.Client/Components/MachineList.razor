@@ -1,0 +1,32 @@
+﻿<div class="card shadow-sm">
+    <div class="card-header bg-body d-flex align-items-center justify-content-between py-3">
+        <h2 class="h6 mb-0">List of Machines</h2>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Name</th>
+                    <th>Id</th>
+                    <th>Status</th>
+                    <th>Last Data</th>
+                    <th>Last Updated</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var machine in Machines)
+                {
+                    <MachineRow @key="machine.Id" Machine="machine" />
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public IReadOnlyList<Machine> Machines { get; set; } = [];
+}

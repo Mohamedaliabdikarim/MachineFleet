@@ -1,0 +1,23 @@
+﻿@page "/"
+
+<PageTitle>Dashboard</PageTitle>
+
+<div class="mb-4">
+    <h1 class="h3 mb-1">Dashboard</h1>
+    <p class="text-secondary mb-0">Overview of your industrial IoT devices.</p>
+</div>
+
+<MachineList Machines="_machines" />
+
+@code {
+
+    private IReadOnlyList<Machine> _machines = null!;
+
+    [Inject]
+    public IMachineService MachineService { get; set; } = null!;
+
+    protected override void OnInitialized()
+    {
+        _machines = MachineService.GetMachines();
+    }
+}
