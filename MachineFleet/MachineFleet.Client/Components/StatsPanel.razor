@@ -1,0 +1,36 @@
+﻿<div class="card shadow-sm">
+    <div class="card-header bg-body py-3">
+        <h2 class="h6 mb-0">Daily Stats</h2>
+    </div>
+
+    <div class="card-body">
+        <div class="row g-3">
+            <div class="col-6">
+                <StatCard Title="Total Machines" Value="@Total.ToString()" Icon="🏭" />
+            </div>
+            <div class="col-6">
+                <StatCard Title="Machines Online" Value="@Online.ToString()" Icon="✅" />
+            </div>
+            <div class="col-6">
+                <StatCard Title="Machines Offline" Value="@Offline.ToString()" Icon="⛔" />
+            </div>
+            <div class="col-6">
+                <StatCard Title="Last Updated" Value="@(LastUpdatedMachine?.Name ?? "-")" Icon="🕒" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public IReadOnlyList<Machine> Machines { get; set; } = [];
+
+    private int Total => Machines.Count;
+
+    private int Online => Machines.Count(m => m.IsOnline);
+
+    private int Offline => Total - Online;
+
+    private Machine? LastUpdatedMachine => Machines.MaxBy(m => m.LastUpdated);
+}

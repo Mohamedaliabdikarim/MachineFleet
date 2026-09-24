@@ -1,0 +1,21 @@
+﻿<div class="border rounded p-3 h-100 bg-body">
+    <div class="d-flex align-items-center gap-2">
+        <span class="fs-4">@Icon</span>
+        <div>
+            <div class="small text-secondary">@Title</div>
+            <div class="fs-5 fw-semibold text-break">@Value</div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public string Title { get; set; } = string.Empty;
+
+    [Parameter]
+    public string Value { get; set; } = string.Empty;
+
+    [Parameter]
+    public string Icon { get; set; } = string.Empty;
+}

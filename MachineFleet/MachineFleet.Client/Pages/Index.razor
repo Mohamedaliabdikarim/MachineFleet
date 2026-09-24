@@ -7,11 +7,19 @@
     <p class="text-secondary mb-0">Overview of your industrial IoT devices.</p>
 </div>
 
-<InputMachine OnAdd="AddMachine" />
+<div class="row g-4">
+    <div class="col-lg-4">
+        <StatsPanel Machines="_machines" />
+    </div>
 
-<CascadingValue Value="_actions">
-    <MachineList Machines="_machines" />
-</CascadingValue>
+    <div class="col-lg-8">
+        <InputMachine OnAdd="AddMachine" />
+
+        <CascadingValue Value="_actions">
+            <MachineList Machines="_machines" />
+        </CascadingValue>
+    </div>
+</div>
 
 @code {
 
