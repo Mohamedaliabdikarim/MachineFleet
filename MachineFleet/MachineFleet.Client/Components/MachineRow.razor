@@ -1,13 +1,18 @@
 ﻿<tr>
-    <td class="fw-medium">@Machine.Name</td>
-    <td class="small text-secondary font-monospace">@Machine.Id</td>
+    <td>
+        <div class="fw-medium text-nowrap">@Machine.Name</div>
+        <div class="small text-secondary font-monospace">@Machine.Id</div>
+    </td>
     <td>
         <span class="badge rounded-pill @(Machine.IsOnline ? "text-bg-success" : "text-bg-danger")">
             @(Machine.IsOnline ? "Online" : "Offline")
         </span>
     </td>
-    <td>@Machine.LastData</td>
-    <td class="small">@Machine.LastUpdated.ToString("yyyy-MM-dd HH:mm:ss")</td>
+    <td class="text-nowrap">@Machine.LastData</td>
+    <td class="small text-nowrap">
+        <div>@Machine.LastUpdated.ToString("yyyy-MM-dd")</div>
+        <div class="text-secondary">@Machine.LastUpdated.ToString("HH:mm:ss")</div>
+    </td>
     <td class="text-end">
         <div class="btn-group btn-group-sm" role="group">
             <button class="btn btn-outline-success" type="button"
