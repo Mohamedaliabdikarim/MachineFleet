@@ -1,19 +1,23 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+<div class="min-vh-100 d-flex flex-column bg-body-tertiary">
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
+    <header class="sticky-top">
+        <NavMenu NavTitle="Industrial Fleet Manager" />
+    </header>
 
-        <article class="content px-4">
+    <main class="flex-grow-1">
+        <div class="container py-4">
             @Body
-        </article>
+        </div>
     </main>
+
+    <footer class="border-top bg-body">
+        <div class="container py-3 small text-secondary">
+            Industrial Fleet Manager • Blazor
+        </div>
+    </footer>
+
 </div>
 
 <div id="blazor-error-ui" data-nosnippet>
