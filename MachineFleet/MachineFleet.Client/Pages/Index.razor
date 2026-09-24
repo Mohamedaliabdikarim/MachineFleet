@@ -7,6 +7,8 @@
     <p class="text-secondary mb-0">Overview of your industrial IoT devices.</p>
 </div>
 
+<InputMachine OnAdd="AddMachine" />
+
 <CascadingValue Value="_actions">
     <MachineList Machines="_machines" />
 </CascadingValue>
@@ -32,6 +34,8 @@
             OnDelete = EventCallback.Factory.Create<Guid>(this, DeleteMachine)
         };
     }
+
+    private void AddMachine(string name) => MachineService.AddMachine(name);
 
     private void StartMachine(Guid id) => MachineService.StartMachine(id);
 

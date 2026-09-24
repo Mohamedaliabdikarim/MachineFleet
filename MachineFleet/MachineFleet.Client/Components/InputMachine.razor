@@ -1,0 +1,38 @@
+﻿<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <EditForm Model="model" OnValidSubmit="AddMachine">
+            <DataAnnotationsValidator />
+
+            <div class="input-group">
+                <InputText @bind-Value="model.Name"
+                           class="form-control"
+                           placeholder="Machine name, e.g. Pump 02" />
+
+                <button type="submit" class="btn btn-primary">
+                    Add Machine
+                </button>
+            </div>
+
+            <div class="mt-2">
+                <ValidationMessage For="(() => model.Name)" />
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+
+    private AddMachineItem model = new();
+
+    [Parameter]
+    public EventCallback<string> OnAdd { get; set; }
+
+    private async Task AddMachine()
+    {
+        if (OnAdd.HasDelegate)
+            await OnAdd.InvokeAsync(model.Name);
+
+        // A new model resets both the input field and the validation state
+        model = new();
+    }
+}
