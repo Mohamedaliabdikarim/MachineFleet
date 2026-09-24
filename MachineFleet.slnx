@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="MachineFleet/MachineFleet.Client/MachineFleet.Client.csproj" />
+  <Project Path="MachineFleet/MachineFleet/MachineFleet.csproj" />
+</Solution>
